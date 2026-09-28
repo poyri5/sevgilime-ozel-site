@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bizim Hikâyemiz ❤️</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--pink:#ff6f9f;--pink2:#ffb6d0;--purple:#a86cff;--bg:#160714;--card:rgba(255,255,255,.09);--text:#fff7fb;--muted:#e2bccc}
+body{font-family:Segoe UI,Arial,sans-serif;color:var(--text);background:radial-gradient(circle at 15% 15%,#54213f 0,transparent 30%),radial-gradient(circle at 85% 85%,#33205b 0,transparent 32%),linear-gradient(135deg,#12040f,#300b25 52%,#100510);min-height:100vh;overflow-x:hidden;transition:.6s}
+body.night{background:radial-gradient(circle at 50% 10%,#1d2454 0,transparent 30%),linear-gradient(135deg,#030512,#090d24 55%,#02030b)}
+.hidden{display:none!important}.screen{min-height:100vh;display:none;align-items:center;justify-content:center;padding:28px 16px;position:relative;z-index:2}.screen.active{display:flex}
+.wrap{width:min(900px,94vw);margin:auto}.card{background:var(--card);border:1px solid rgba(255,255,255,.14);backdrop-filter:blur(15px);-webkit-backdrop-filter:blur(15px);border-radius:28px;box-shadow:0 25px 80px rgba(0,0,0,.3);padding:34px}
+.center{text-align:center}.small{font-size:12px;letter-spacing:3px;text-transform:uppercase;color:var(--pink2);margin-bottom:15px}
+h1{font-size:clamp(42px,9vw,78px);line-height:1.02;margin-bottom:18px}h2{font-size:clamp(30px,6vw,48px);margin-bottom:15px}p{line-height:1.8;color:#f6dce8}
+.btns{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:24px}
+button{border:0;border-radius:999px;padding:14px 24px;font-size:16px;color:#fff;background:linear-gradient(90deg,var(--pink),var(--purple));cursor:pointer;box-shadow:0 9px 30px rgba(255,80,145,.22);transition:.25s}
+button:hover{transform:translateY(-2px) scale(1.02)}button.secondary{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15)}
+.envelope{width:220px;height:145px;margin:25px auto 30px;position:relative;cursor:pointer;filter:drop-shadow(0 20px 25px rgba(0,0,0,.3))}
+.env-body{position:absolute;inset:0;background:linear-gradient(145deg,#ff83ad,#c64c86);border-radius:12px}
+.env-flap{position:absolute;left:0;top:0;border-left:110px solid transparent;border-right:110px solid transparent;border-top:82px solid #ffb2ca;transform-origin:top;transition:.7s;z-index:3}
+.env-letter{position:absolute;background:#fff5fa;color:#7a234b;width:82%;height:105px;left:9%;top:24px;border-radius:8px;z-index:2;transition:.7s;padding:12px;font-size:13px}
+.envelope.open .env-flap{transform:rotateX(180deg)}.envelope.open .env-letter{transform:translateY(-70px)}
+.type{font-size:20px;min-height:70px;color:#ffe5ef;margin:20px auto;max-width:680px}
+.reasons{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:22px}.reason{padding:17px;border-radius:18px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1)}
+.poem{font-size:20px;line-height:2.1;white-space:pre-line;color:#ffe6f0}
+.contract{background:rgba(255,255,255,.06);padding:25px;border-radius:20px;line-height:1.9;text-align:left}
+.signature{font-family:cursive;font-size:36px;color:#ff9fbe;border-bottom:1px solid #ffffff44;padding:12px 5px;text-align:center;margin-top:12px}
+.countdown{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:25px 0}.time{padding:20px 8px;text-align:center}.num{font-size:clamp(30px,6vw,54px);font-weight:700}.label{font-size:11px;color:var(--pink2);letter-spacing:1px;text-transform:uppercase}
+.heart-field{height:360px;position:relative;overflow:hidden;border-radius:24px;background:rgba(0,0,0,.15);border:1px solid rgba(255,255,255,.1)}
+.find-heart{position:absolute;font-size:38px;cursor:pointer;user-select:none;animation:pulse 1.3s infinite;transition:.2s}.find-heart:hover{transform:scale(1.35)}
+@keyframes pulse{50%{filter:drop-shadow(0 0 18px #ff74a7);transform:scale(1.12)}}
+.hug{font-size:120px;animation:hug 1.5s infinite;display:inline-block;margin:15px}@keyframes hug{50%{transform:scale(1.2) rotate(-4deg)}}
+.spark{position:fixed;pointer-events:none;z-index:20;font-size:20px;animation:up 2s ease-out forwards}@keyframes up{to{transform:translateY(-150px) rotate(30deg);opacity:0}}
+.topbar{position:fixed;top:14px;right:14px;z-index:30}.topbar button{padding:10px 15px;font-size:13px}
+footer{text-align:center;padding:25px;color:#cdaaba;font-size:13px}
+@media(max-width:620px){.card{padding:25px 18px}.reasons{grid-template-columns:1fr}.countdown{grid-template-columns:repeat(2,1fr)}.heart-field{height:300px}}
+</style>
+</head>
+<body>
+
+<div class="topbar"><button class="secondary" onclick="toggleNight()">🌙 Gece Modu</button></div>
+<div id="particles"></div>
+
+<!-- 1 ZARF -->
+<section class="screen active" id="s1"><div class="wrap center">
+ <div class="small">Sadece senin için</div>
+ <div class="envelope" id="env" onclick="openEnvelope()"><div class="env-body"></div><div class="env-letter">Sana söylemek istediklerim var... ❤️</div><div class="env-flap"></div></div>
+ <h1>Bir Mektup ❤️</h1><p>Zarfı açmadan bu hikâye başlamıyor.</p>
+ <div class="btns"><button onclick="openEnvelope()">Zarfı Aç</button></div>
+ </div></section>
+
+<!-- 2 ÖZÜR -->
+<section class="screen" id="s2"><div class="wrap card center">
+ <div class="small">Önce bunu bilmeni istiyorum</div><h2>Özür Dilerim. ❤️</h2>
+ <p>Her şeyin kusursuz olduğunu söylemeyeceğim. Bazen yanlış yaptım, bazen seni üzdüm, bazen de söylemem gerekenleri zamanında söyleyemedim.</p>
+ <p style="margin-top:16px">Ama seni kırmak hiçbir zaman istediğim bir şey değildi. Hissettiklerini önemsiyorum ve seni daha iyi anlamak istiyorum.</p>
+ <div class="btns"><button onclick="go(3)">Devam Et</button></div>
+ </div></section>
+
+<!-- 3 BUTONLAR -->
+<section class="screen" id="s3"><div class="wrap card center">
+ <div class="small">Şimdi seçim sende</div><h2>Bir tane seç ❤️</h2>
+ <p>Hangisine basarsan bas, sonunda yine sana çıkıyor.</p>
+ <div class="btns"><button onclick="choose('Seni seviyorum. Bunu duymaya hakkın var. ❤️')">❤️ Sevgi</button><button onclick="choose('Seninle konuşmak bile günümün en güzel kısmı. 💗')">💬 Mesaj</button><button onclick="choose('Bir sarılma hakkın var. Hem de kocamanından. 🫂')">🫂 Sarılma</button></div>
+ <p id="choice" style="margin-top:25px;font-size:19px"></p>
+ <div class="btns"><button class="secondary" onclick="go(4)">Sonraki</button></div>
+ </div></section>
+
+<!-- 4 ŞİİR -->
+<section class="screen" id="s4"><div class="wrap card center">
+ <div class="small">Sana birkaç satır</div><h2>Şiirim ❤️</h2>
+ <div class="poem">Bir gülüşün yeter,
+sessiz bir günü güzelleştirmeye.
+Bir mesajın yeter,
+uzakları yakın etmeye.
+
+Ben büyük sözlerden çok,
+seninle olan küçük anları seviyorum.
+Ve her gün biraz daha,
+“iyi ki” diyorum.
+
+İyi ki sen. ❤️</div>
+ <div class="btns"><button onclick="go(5)">Devam Et</button></div>
+ </div></section>
+
+<!-- 5 SÖZLEŞME -->
+<section class="screen" id="s5"><div class="wrap card center">
+ <div class="small">Bizim küçük sözleşmemiz</div><h2>Bir Söz Verelim 💍</h2>
+ <div class="contract">
+  <p>☑ Birbirimizi dinlemeye.</p><p>☑ Kırıldığımızda susmak yerine konuşmaya.</p><p>☑ Güzel günlerde olduğu kadar zor günlerde de birbirimizin yanında olmaya.</p><p>☑ Küçük şeyleri küçümsememeye.</p><p>☑ Ve en önemlisi: birbirimizi seçmeyi unutmamaya.</p>
+ </div>
+ <div class="signature">Poyraz ❤️</div>
+ <div class="btns"><button onclick="sign()">Söz Veriyorum</button></div>
+ <p id="signed" style="margin-top:15px"></p>
+ </div></section>
+
+<!-- 6 DOĞUM GÜNÜ -->
+<section class="screen" id="s6"><div class="wrap card center">
+ <div class="small">Özel gününe</div><h2>🎂 Doğum Gününe Kalan</h2>
+ <p>23 Aralık 2026 · 14:30</p>
+ <div class="countdown">
+  <div class="card time"><div class="num" id="days">--</div><div class="label">Gün</div></div>
+  <div class="card time"><div class="num" id="hours">--</div><div class="label">Saat</div></div>
+  <div class="card time"><div class="num" id="mins">--</div><div class="label">Dakika</div></div>
+  <div class="card time"><div class="num" id="secs">--</div><div class="label">Saniye</div></div>
+ </div>
+ <p>O gün geldiğinde bu sayaç başka bir sürprize dönüşecek. 🎁</p>
+ <div class="btns"><button onclick="go(7)">Devam Et</button></div>
+ </div></section>
+
+<!-- 7 KALBİNİ BUL -->
+<section class="screen" id="s7"><div class="wrap card center">
+ <div class="small">Küçük bir oyun</div><h2>Kalbini Bul ❤️</h2>
+ <p>Gerçek kalp sadece bir tanesi. Bulduğunda ödülün var.</p>
+ <div class="heart-field" id="field"></div>
+ <p id="found" style="margin-top:15px"></p>
+ </div></section>
+
+<!-- 8 ÖDÜL -->
+<section class="screen" id="s8"><div class="wrap card center">
+ <div class="small">Buldun! ❤️</div><h2>Ödülünü Aç</h2>
+ <p>Üç kapı var. Birini seç.</p>
+ <div class="btns"><button onclick="reward('mesaj')">💌 Mesajım Var</button><button onclick="reward('kupon')">🎟️ Döner Kuponu</button><button onclick="go(9)">🫂 Sanal Sarılma</button></div>
+ <div id="rewardText" style="margin-top:25px;font-size:19px"></div>
+ <div class="btns"><button class="secondary" onclick="go(9)">Sarılmaya Git</button></div>
+ </div></section>
+
+<!-- 9 SARILMA -->
+<section class="screen" id="s9"><div class="wrap card center">
+ <div class="small">Gel buraya...</div><h2>🫂 Sanal Sarılma</h2>
+ <div class="hug">🫂</div>
+ <p style="font-size:20px">Şimdilik sanal ama olsun.<br>En güzelinden kocaman bir sarılma. 🥺❤️</p>
+ <div class="btns"><button onclick="hug()">Sarılmayı Başlat</button><button class="secondary" onclick="go(10)">Müziğe Geç</button></div>
+ </div></section>
+
+<!-- 10 MÜZİK -->
+<section class="screen" id="s10"><div class="wrap card center">
+ <div class="small">Bizim için</div><h2>🎵 Biraz Müzik</h2>
+ <p>Bu sürümde dışarıdan dosya gerektirmeyen küçük bir romantik melodi hazırladım.</p>
+ <div class="btns"><button onclick="toggleMusic()" id="musicBtn">▶️ Müziği Başlat</button><button class="secondary" onclick="go(11)">Finale Git</button></div>
+ <p id="musicText" style="margin-top:18px"></p>
+ </div></section>
+
+<!-- 11 FINAL -->
+<section class="screen" id="s11"><div class="wrap card center">
+ <div class="small">Ve geldik buraya</div><h2>Bir Son Değil... ❤️</h2>
+ <p style="font-size:20px">Güzel şeylerin başlangıcı olsun.</p>
+ <p style="margin-top:20px">Bu sayfadaki her şey değişebilir; ama sana anlatmak istediğim tek şey değişmesin:</p>
+ <p style="font-size:26px;margin-top:15px;color:#ffb0ca"><strong>İyi ki varsın. Seni seviyorum. ❤️</strong></p>
+ <div class="btns"><button onclick="go(1)">Baştan Başla</button></div>
+ </div></section>
+
+<footer>Sen + Ben = Biz ❤️</footer>
+
+<script>
+let current=1;
+function go(n){
+ document.querySelectorAll('.screen').forEach(x=>x.classList.remove('active'));
+ document.getElementById('s'+n).classList.add('active');current=n;
+ window.scrollTo({top:0,behavior:'smooth'});
+ if(n===7) makeHeartGame();
+}
+function openEnvelope(){document.getElementById('env').classList.add('open');setTimeout(()=>go(2),900)}
+function choose(t){document.getElementById('choice').textContent=t;burst('❤️')}
+function sign(){document.getElementById('signed').textContent='Sözümüz burada. ❤️';burst('💗')}
+function reward(type){
+ const el=document.getElementById('rewardText');
+ if(type==='mesaj') el.textContent='Sana verebileceğim en güzel mesaj: Ne olursa olsun, seni seçtiğimi bil. ❤️';
+ if(type==='kupon') el.textContent='🎟️ 1 adet sınırsız döner + yanında kocaman bir sarılma. Kullanım süresi: sonsuz.';
+ burst('💖');
+}
+function makeHeartGame(){
+ const f=document.getElementById('field');f.innerHTML='';
+ for(let i=0;i<22;i++){
+  const h=document.createElement('span');h.className='find-heart';h.textContent='♡';
+  h.style.left=(Math.random()*88+3)+'%';h.style.top=(Math.random()*82+5)+'%';h.style.fontSize=(25+Math.random()*25)+'px';
+  h.onclick=()=>{document.getElementById('found').textContent='Buldun! ❤️ Ödülün seni bekliyor...';burst('❤️');setTimeout(()=>go(8),800)};
+  f.appendChild(h);
+ }
+ const real=document.createElement('span');real.className='find-heart';real.textContent='❤️';
+ real.style.left=(Math.random()*78+8)+'%';real.style.top=(Math.random()*70+8)+'%';real.style.fontSize='42px';
+ real.onclick=()=>{document.getElementById('found').textContent='Buldun! ❤️';burst('💖');setTimeout(()=>go(8),700)};
+ f.appendChild(real);
+}
+function burst(symbol='❤️'){
+ for(let i=0;i<8;i++){const s=document.createElement('span');s.className='spark';s.textContent=symbol;s.style.left=(45+Math.random()*10)+'vw';s.style.top=(50+Math.random()*8)+'vh';s.style.animationDelay=(Math.random()*.3)+'s';document.body.appendChild(s);setTimeout(()=>s.remove(),2200)}
+}
+function toggleNight(){document.body.classList.toggle('night')}
+let audioCtx=null,playing=false,timer=null;
+function toggleMusic(){
+ const btn=document.getElementById('musicBtn'),txt=document.getElementById('musicText');
+ if(playing){clearInterval(timer);playing=false;btn.textContent='▶️ Müziği Başlat';txt.textContent='Müzik durdu.';return}
+ audioCtx=new (window.AudioContext||window.webkitAudioContext)();
+ const notes=[261.63,329.63,392,329.63,293.66,349.23,440,349.23];let i=0;
+ timer=setInterval(()=>{if(!playing)return;const o=audioCtx.createOscillator(),g=audioCtx.createGain();o.frequency.value=notes[i++%notes.length];o.type='sine';g.gain.setValueAtTime(.0001,audioCtx.currentTime);g.gain.exponentialRampToValueAtTime(.07,audioCtx.currentTime+.03);g.gain.exponentialRampToValueAtTime(.0001,audioCtx.currentTime+.55);o.connect(g).connect(audioCtx.destination);o.start();o.stop(audioCtx.currentTime+.6)},600);
+ playing=true;btn.textContent='⏸️ Müziği Durdur';txt.textContent='Küçük melodimiz çalıyor... 🎵';
+}
+const birthday=new Date(2026,11,23,14,30,0);
+function countdown(){
+ const d=birthday-new Date();
+ if(d<=0){['days','hours','mins','secs'].forEach((id,i)=>document.getElementById(id).textContent=['🎉','🎂','❤️','🥳'][i]);return}
+ document.getElementById('days').textContent=Math.floor(d/86400000);
+ document.getElementById('hours').textContent=String(Math.floor(d/3600000)%24).padStart(2,'0');
+ document.getElementById('mins').textContent=String(Math.floor(d/60000)%60).padStart(2,'0');
+ document.getElementById('secs').textContent=String(Math.floor(d/1000)%60).padStart(2,'0');
+}
+countdown();setInterval(countdown,1000);
+</script>
+</body>
+</html>
